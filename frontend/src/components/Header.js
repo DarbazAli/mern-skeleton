@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Navbar, Nav, Container, Button } from 'react-bootstrap'
 const Header = () => {
   return (
     <header>
@@ -12,6 +12,9 @@ const Header = () => {
               <Nav.Link href='/'>Home</Nav.Link>
               <Nav.Link href='/users'>Users</Nav.Link>
               <Nav.Link href='/signup'>Signup</Nav.Link>
+              <Nav.Link href='/signin' className='btn btn-outline-success'>
+                Signin
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
