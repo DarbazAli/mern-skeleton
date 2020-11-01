@@ -1,8 +1,16 @@
-function App() {
+import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import MainRouter from './MainRouter.js'
+import Header from './components/Header.js'
+import Footer from './components/Footer.js'
+const App = () => {
   return (
-    <div>
-      <h1>Hello from React</h1>
-    </div>
+    <Router>
+      <Header />
+      <MainRouter />
+      <Footer />
+    </Router>
   )
 }
 
