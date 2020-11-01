@@ -4,6 +4,10 @@ import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import cors from 'cors'
 
+// import routes
+import authRoutes from './routes/auth.routes.js'
+import userRoutes from './routes/user.routes.js'
+
 // initilize app
 const app = express()
 
@@ -22,6 +26,9 @@ app.use(cors())
 app.get('/', (req, res) => {
   res.status(200).send('Hello World!')
 })
+
+app.use('/', userRoutes)
+app.use('/', authRoutes)
 
 // export main express app
 export default app
