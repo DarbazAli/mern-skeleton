@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Container, Form, Button, Row, Col } from 'react-bootstrap'
+import { Container, Form, Button, Row, Col, Modal } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { create } from '../user/api.user.js'
 
 const Signup = () => {
@@ -7,9 +8,10 @@ const Signup = () => {
     name: '',
     password: '',
     email: '',
-    open: false,
     error: '',
   })
+
+  const [show, setShow] = useState(false)
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value })
@@ -23,10 +25,12 @@ const Signup = () => {
 
     create(user).then((data) => {
       if (data.error) {
+        console.log(data)
         setValues({ ...values, error: data.error })
       } else {
-        setValues({ ...values, error: '', open: true })
-        // window.location('/users')
+        console.log(data)
+        setValues({ ...values, error: '' })
+        setShow(true)
       }
     })
   }
@@ -38,7 +42,7 @@ const Signup = () => {
             <Form>
               <h2>Signup</h2>
 
-              <Form.Group controlId='formBasicEmail'>
+              <Form.Group controlId='formBasicName'>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
                   value={values.name}
@@ -69,7 +73,6 @@ const Signup = () => {
                   type='password'
                   placeholder='Password'
                 />
-                {values.error && values.error}
               </Form.Group>
               <Button
                 block
@@ -81,6 +84,18 @@ const Signup = () => {
               </Button>
             </Form>
           </Col>
+
+          <Modal show={show}>
+            <Modal.Header>
+              <Modal.Title>Signin</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Signin</Modal.Body>
+            <Modal.Footer>
+              <Link to='/signin'>
+                <Button variant='primary'>Signin</Button>
+              </Link>
+            </Modal.Footer>
+          </Modal>
         </Row>
       </Container>
     </main>
