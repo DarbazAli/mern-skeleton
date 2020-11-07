@@ -26,13 +26,17 @@ const Users = () => {
         <div className='jumbotron'>
           <h1 className='display-3'>All Users</h1>
 
-          <ListGroup variant='flush'>
-            {users.map((user) => (
-              <Link to={`/user/${user._id}`} key={user._id}>
-                <ListGroupItem>{user.name}</ListGroupItem>
-              </Link>
-            ))}
-          </ListGroup>
+          {users.length === 0 ? (
+            <h4>No user found!</h4>
+          ) : (
+            <ListGroup variant='flush'>
+              {users.map((user) => (
+                <Link to={`/user/${user._id}`} key={user._id}>
+                  <ListGroupItem>{user.name}</ListGroupItem>
+                </Link>
+              ))}
+            </ListGroup>
+          )}
         </div>
       </Container>
     </main>
