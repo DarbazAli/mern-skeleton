@@ -4,51 +4,47 @@ import { Link } from 'react-router-dom'
 import { create } from '../user/api.user.js'
 
 const Signup = () => {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [values, setValues] = useState({
+    name: '',
+    password: '',
+    email: '',
+    error: '',
+    show: false,
+  })
 
-  // const [values, setValues] = useState({
-  //   name: '',
-  //   password: '',
-  //   email: '',
-  //   error: '',
-  // })
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value })
+  }
 
-  const [show, setShow] = useState(false)
-
-  // const handleChange = (name) => (event) => {
-  //   setValues({ ...values, [name]: event.target.value })
-  // }
   const handleSubmit = () => {
     const user = {
-      name: name || undefined,
-      email: email || undefined,
-      password: password || undefined,
+      name: values.name || undefined,
+      email: values.email || undefined,
+      password: values.password || undefined,
     }
 
     create(user).then((data) => {
       if (data.error) {
-        console.log(data)
+        setValues({ ...values, error: data.error })
       } else {
-        console.log(data)
-        setShow(true)
+        setValues({ ...values, error: '', show: true })
       }
     })
   }
+
   return (
     <main>
       <Container>
         <Row className='justify-content-md-center'>
           <Col sm={4}>
-            <Form onSubmit={handleSubmit}>
+            <Form>
               <h2>Signup</h2>
 
               <Form.Group controlId='formBasicName'>
                 <Form.Label>Name</Form.Label>
                 <Form.Control
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={values.name}
+                  onChange={handleChange('name')}
                   type='text'
                   placeholder='User name'
                 />
@@ -57,8 +53,8 @@ const Signup = () => {
               <Form.Group controlId='formBasicEmail'>
                 <Form.Label>Email address</Form.Label>
                 <Form.Control
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={values.email}
+                  onChange={handleChange('email')}
                   type='email'
                   placeholder='Enter email'
                 />
@@ -70,23 +66,23 @@ const Signup = () => {
               <Form.Group controlId='formBasicPassword'>
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={values.password}
+                  onChange={handleChange('password')}
                   type='password'
                   placeholder='Password'
                 />
               </Form.Group>
-              <Button block variant='primary' type='submit'>
+              <Button block variant='primary' onClick={handleSubmit}>
                 Submit
               </Button>
             </Form>
           </Col>
 
-          <Modal show={show}>
-            <Modal.Header>
-              <Modal.Title>Signin</Modal.Title>
+          <Modal show={values.show}>
+            <Modal.Header closeButton>
+              <Modal.Title>Sign In</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Signin</Modal.Body>
+            <Modal.Body>Successfully Signed up, got to sign in page</Modal.Body>
             <Modal.Footer>
               <Link to='/signin'>
                 <Button variant='primary'>Signin</Button>
